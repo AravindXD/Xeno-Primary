@@ -1,0 +1,45 @@
+# Node
+node_modules/
+dist/
+build/
+.out/
+.env
+.env.*
+
+# npm logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+
+# Prisma
+prisma/dev.db
+prisma/dev.db-journal
+prisma/.env
+
+# PM2 logs
+pids
+*.pid
+*.seed
+
+# Others
+coverage/
+*.local
+.idea/
+*.swp
+ # Ignore Mac and Windows hidden files
+.svn
