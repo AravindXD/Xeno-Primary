@@ -72,46 +72,44 @@ This service provides:
 - Frontend: Vercel
 - Database: PostgreSQL (Render/Supabase)
 
-## 📋 Features Implemented
+## 📋 Features
 
-### ✅ Core Requirements
+### Data Ingestion & Sync
 
-1. **Shopify Store Setup**
-   - ✅ Development store configured
-   - ✅ Dummy data (products, customers, orders) added
+- **Shopify API Integration**: Full integration with Shopify Admin API for fetching customers, products, and orders
+- **Multi-tenant Data Isolation**: Row-level security with tenant-based data separation
+- **Manual Sync**: API endpoint to trigger data synchronization on demand
+- **Automated Scheduler**: Cron-based hourly sync for all tenants (configurable schedule)
+- **Webhook Support**: Real-time data updates via Shopify webhooks for customers, orders, products, carts, and checkouts
+- **Custom Events**: Tracking for cart abandoned and checkout started events
+- **Shopify Seed Script**: Script to create products, customers, and orders directly in Shopify via API, then sync to database
+- **Sync Script**: Standalone script to sync existing Shopify data without creating new data
 
-2. **Data Ingestion Service**
-   - ✅ Customers sync
-   - ✅ Orders sync
-   - ✅ Products sync
-   - ✅ Multi-tenant support with data isolation
-   - ✅ Custom events tracking (cart abandoned, checkout started)
+### Dashboard & Analytics
 
-3. **Insights Dashboard**
-   - ✅ Total customers, orders, and revenue
-   - ✅ Orders by date with date range filtering (startDate/endDate query params)
-   - ✅ Top 5 customers by spend
-   - ✅ Additional metrics (average order value, total products)
-   - ✅ Sales trend charts (Recharts visualization)
-   - ✅ Order status breakdown
-   - ✅ Email authentication (NextAuth.js) - protected routes
-   - ✅ Creative metrics and trend charts for business performance
+- **Real-time Statistics**: Total customers, orders, revenue, products, and average order value
+- **Date Range Filtering**: Filter orders and metrics by custom date ranges
+- **Sales Trend Charts**: Interactive line charts showing sales over time using Recharts
+- **Top Customers**: Table displaying top 5 customers by total spend
+- **Order Status Breakdown**: Visualization of orders by financial status (paid, pending, refunded)
+- **Dark Mode**: Full dark/light mode support with theme toggle
+- **Responsive Design**: Mobile-friendly UI built with Shadcn UI components
 
-4. **Documentation**
-   - ✅ This comprehensive README
-   - ✅ Architecture diagram
-   - ✅ API documentation
-   - ✅ Database schema
+### Authentication & Security
 
-### ✅ Additional Features (All Requirements Met)
+- **Email Authentication**: NextAuth.js integration with email/password login
+- **Protected Routes**: Dashboard requires authentication to access
+- **User Management**: Support for admin and regular users with role-based access
+- **Session Management**: Secure session handling with JWT tokens
+- **Demo Credentials**: Pre-seeded admin and user accounts for easy testing
 
-- ✅ **Scheduler**: Automated hourly sync for all tenants (node-cron)
-- ✅ **Webhooks**: Real-time data sync from Shopify
-- ✅ **Email Authentication**: NextAuth.js with email/password (demo mode)
-- ✅ **Multi-tenant**: Complete tenant isolation with Prisma ORM
-- ✅ **Error Handling**: Robust error handling and validation
-- ✅ **Type Safety**: Full TypeScript implementation
-- ✅ **Deployment Ready**: Configured for Render (backend) and Vercel (frontend)
+### Technical Features
+
+- **TypeScript**: Full type safety across backend and frontend
+- **Prisma ORM**: Type-safe database queries with multi-tenant support
+- **Error Handling**: Comprehensive error handling and validation
+- **API Documentation**: Well-documented REST API endpoints
+- **Database Schema**: Complete schema with proper relationships and constraints
 
 ## 🚀 Getting Started
 
@@ -153,9 +151,9 @@ This service provides:
    # Both seed scripts create:
    # - Admin users (admin@xeno.com / admin123)
    # - Regular users (user@xeno.com / user123)
-   # - Sample customers, products, orders, and events
    #
-   # Option 2 additionally creates real data in Shopify that matches your database
+   # Option 1 (npx prisma db seed): Only creates users/admins in database
+   # Option 2 (npm run prisma:seed-shopify): Creates products, customers, and orders in Shopify via API, then syncs to database
    ```
 
 3. **Frontend Setup**
@@ -410,61 +408,55 @@ After deploying backend, configure Shopify webhooks:
 4. **Error Recovery**: Basic (needs retry logic, dead letter queues)
 5. **Multi-tenant Admin UI**: Not implemented (manual tenant creation via seed script)
 
-## ✅ Assignment Requirements Checklist
+## ✅ Implementation Summary
 
-### Core Requirements
+### What Was Built
 
-- [x] **Shopify Store Setup**
-  - Development store created and configured
-  - Dummy products, customers, and orders added
+This project implements a complete multi-tenant Shopify data ingestion and analytics platform with the following components:
 
-- [x] **Data Ingestion Service**
-  - Customers sync via Shopify Admin API
-  - Orders sync via Shopify Admin API
-  - Products sync via Shopify Admin API
-  - Multi-tenant support with data isolation
-  - Custom events (cart abandoned, checkout started) - BONUS
+**Backend Services:**
+- Express.js REST API with TypeScript
+- Prisma ORM for database operations
+- Shopify Admin API integration
+- Automated scheduler (node-cron) for periodic data sync
+- Webhook handler for real-time Shopify updates
+- Authentication system with email/password
 
-- [x] **Insights Dashboard**
-  - Total customers, orders, and revenue metrics
-  - Orders by date with date range filtering
-  - Top 5 customers by spend
-  - Creative metrics and trend charts (sales trends, order status, AOV)
+**Frontend Application:**
+- Next.js 16 dashboard with React 19
+- Shadcn UI component library
+- Recharts for data visualization
+- NextAuth.js for authentication
+- Dark/light mode support
+- Responsive design
 
-- [x] **Documentation (2-3 Pages)**
-  - Assumptions documented
-  - High-level architecture diagram
-  - APIs and data models documented
-  - Next steps to productionize documented
+**Database:**
+- PostgreSQL with multi-tenant row-level isolation
+- Complete schema for tenants, users, customers, products, orders, and custom events
 
-### Additional Requirements
+**Data Sync:**
+- Manual sync via API endpoint
+- Automated hourly sync via scheduler
+- Real-time sync via Shopify webhooks
+- Shopify seed script to create test data directly in Shopify
 
-- [x] **Deployment**
-  - Backend deployed on Render
-  - Frontend deployed on Vercel
-  - Deployment instructions provided
-
-- [x] **Scheduler/Webhooks**
-  - Automated scheduler (node-cron) for periodic sync
-  - Shopify webhooks for real-time updates
-
-- [x] **ORM**
-  - Prisma ORM for clean multi-tenant handling
-  - Type-safe database queries
-
-- [x] **Authentication**
-  - NextAuth.js for email authentication
-  - Protected dashboard routes
+**Dashboard Features:**
+- Real-time statistics (revenue, orders, customers, products, AOV)
+- Date range filtering for orders and metrics
+- Sales trend visualization with line charts
+- Top 5 customers by spend table
+- Order status breakdown
+- One-click data sync from dashboard
 
 ## 🎥 Demo Video
 
-[Link to demo video explaining features, approach, and trade-offs]
+[Link to demo video will be added here]
 
-**Video should cover:**
-- Features implemented
-- How you approached the problem
-- Trade-offs made
-- Architecture decisions
+The demo video covers:
+- All implemented features and functionality
+- Architecture and technical approach
+- Trade-offs and design decisions
+- Live demonstration of the dashboard and data sync
 
 ## 👤 Author
 
