@@ -512,9 +512,9 @@ After deploying backend, configure Shopify webhooks:
 
 ## 👤 Author
 
-[Your Name]
-- GitHub: [Your GitHub]
-- Email: [Your Email]
+**Aravind**
+- GitHub: [AravindXD](https://github.com/AravindXD)
+- Email: aravind.nag1803@gmail.com
 
 ## 📄 License
 
