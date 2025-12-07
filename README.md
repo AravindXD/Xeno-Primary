@@ -332,13 +332,10 @@ The system implements **row-level tenant isolation**:
 
 ### Backend (Render)
 
+**Option 1: Using render.yaml (Recommended)**
 1. **Create a new Web Service** on Render
 2. **Connect your GitHub repository**
-3. **Configure build settings:**
-   - Build Command: `npm install && npx prisma generate && npm run build`
-   - Start Command: `npm start`
-   - Environment: `Node`
-   - Root Directory: `backend` (if deploying from monorepo)
+3. **Render will automatically detect `render.yaml` in the root** and use the configuration
 4. **Set environment variables** in Render dashboard:
    ```
    DATABASE_URL=postgresql://...
@@ -353,7 +350,13 @@ The system implements **row-level tenant isolation**:
    ```
 5. **Deploy**
 
-Alternatively, use the `render.yaml` file for infrastructure as code.
+**Option 2: Manual Configuration**
+If render.yaml doesn't work, manually configure in Render dashboard:
+1. **Root Directory**: `backend`
+2. **Build Command**: `npm install && npx prisma generate && npm run build`
+3. **Start Command**: `npm start`
+4. **Environment**: `Node`
+5. Set all environment variables as listed above
 
 ### Frontend (Vercel)
 
