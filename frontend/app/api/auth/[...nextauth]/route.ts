@@ -62,8 +62,8 @@ const handler = NextAuth({
       if (user) {
         token.id = user.id
         token.email = user.email
-        token.role = (user as any).role
-        token.tenantId = (user as any).tenantId
+        token.role = user.role
+        token.tenantId = user.tenantId
       }
       return token
     },
@@ -71,8 +71,8 @@ const handler = NextAuth({
       if (session.user) {
         session.user.id = token.id as string
         session.user.email = token.email as string
-        ;(session.user as any).role = token.role
-        ;(session.user as any).tenantId = token.tenantId
+        session.user.role = token.role
+        session.user.tenantId = token.tenantId as string | null
       }
       return session
     }
